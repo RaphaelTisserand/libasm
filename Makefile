@@ -16,7 +16,7 @@ OBJS		:= $(SRCS:$(SRCS_DIR)/%.s=$(BUILD_DIR)/%.o)
 DEPS		:= $(OBJS:.o=.d)
 
 AS			:= nasm
-ASFLAGS		:= $(ASFLAGS) -MMD -Wall -Wextra -Werror -g3
+ASFLAGS		:= -f elf64
 
 LD			:= ld
 LDFLAGS		:= -m elf_x86_64
@@ -49,7 +49,8 @@ $(NAME): $(OBJS)
 
 $(BUILD_DIR)/%.o: $(SRCS_DIR)/%.s
 	$(DIR_DUP)
-	$(AS) $(CFLAGS) $(ASFLAGS) -c -o $@ $<
+	$(AS) $(ASFLAGS) $< -o $@.o
+	$(LD) $(LDFLAGS) $@.o -o $@
 	$(ECHO)"$(G)CREATED$(END) $(@)\n"
 
 -include $(DEPS)
