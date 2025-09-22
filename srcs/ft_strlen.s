@@ -13,5 +13,5 @@ compare:
 	cmp	byte [rdi], 0
 	jne	increment
 
-stop:
+end:
 	ret
