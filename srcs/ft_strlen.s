@@ -1,17 +1,21 @@
 section .text
-	global ft_strlen
+	global start
+	global _ft_strlen
 
-ft_strlen:
-	xor	rax, rax
-	jmp	compare
+start:
+	call _ft_strlen
+
+_ft_strlen:
+	xor rax, rax
+	jmp compare
 
 increment:
-	inc	rdi
-	inc	rax
+	inc rdi
+	inc rax
 
 compare:
-	cmp	byte [rdi], 0
-	jne	increment
+	cmp byte [rdi], 0
+	jne increment
 
 end:
 	ret
